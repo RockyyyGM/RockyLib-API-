@@ -1,6 +1,6 @@
 # RockyLib-API-
 ### RockyLib API Is This Versión Of RockyLib With Gradle Proyect With This One Code!!
-##### More Info Visit https://www.github.com/RockyyyGM/RockyLib-API/issues/issues 
+##### More Info Visit (https://github.com/RockyyyGM/RockyLib-API-/issues) 
 ## /Curseforge/ RockyyyGM
 # https://www.curseforge.com/user/RockyyyGM
 # RockyDev 
