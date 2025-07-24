@@ -1,0 +1,91 @@
+plugins {
+    id 'multiloader-loader'
+    id 'fabric-loom'
+    id "com.hypherionmc.modutils.modpublisher"
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modImplementation "com.terraformersmc:modmenu:${mod_menu_version}"
+}
+
+loom {
+    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
+    }
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
+    runs {
+        client {
+            client()
+            setConfigName('Fabric Client')
+            ideConfigGenerated(true)
+            runDir('runs/client')
+        }
+        server {
+            server()
+            setConfigName('Fabric Server')
+            ideConfigGenerated(true)
+            runDir('runs/server')
+        }
+    }
+}
+
+publisher {
+    // Setup the required API keys. You only need to define the keys for
+    // the platforms you plan on uploading to
+    apiKeys {
+        // Curseforge Token
+        curseforge System.getenv("CURSEFORGE_TOKEN")
+    }
+
+    // Enable Debug mode. When enabled, no files will actually be uploaded
+    setDebug(Boolean.valueOf(dry_run))
+
+    // Curseforge Project ID
+    setCurseID(curse_id)
+
+    // Type of release. beta, alpha or release
+    setVersionType(release_type)
+
+    setChangelog(extractHeaderLatestFooterFromChangelog(file('../changelog.md').text))
+
+    // Required for GitHub/CurseForge
+    setProjectVersion(rootProject.version)
+
+    // Fancy display name for the upload.
+    setDisplayName("$mod_id-$project.name-$project.minecraft_version-$project.version")
+
+    // The supported game versions
+    setGameVersions(game_versions.split(','))
+
+    // The modloaders your upload supports.
+    setLoaders("fabric")
+
+    // The new Curseforge Environment tag. Optional
+    setCurseEnvironment(mod_environment)
+
+    // Upload the release, but keep it "private" until you are ready
+    setIsManualRelease(false)
+
+    // The file to be uploaded.
+    setArtifact(jar.getArchiveFile().get().getAsFile().toString())
+    setDisableEmptyJarCheck(false)
+
+    // Add supported java versions. Currently only used by CurseForge
+    setJavaVersions(JavaVersion.VERSION_21, JavaVersion.VERSION_22)
+
+    if (mod_curse_depends?.trim()) {
+        curseDepends {
+            required(mod_curse_depends.split(','))
+        }
+    }
+}

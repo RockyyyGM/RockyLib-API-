@@ -1,0 +1,36 @@
+{
+    "schemaVersion": 1,
+    "id": "rockylib",
+    "version": "1.26.34+1.21.6",
+    "name": "RockyLib",
+    "description": "A Library API For This Mods",
+    "authors": [
+        "RockyDev"
+    ],
+    "contact": {
+        "homepage": "",
+        "sources": "https://github.com/RockyyyFOG/RockyLib-API"
+    },
+    "license": "MIT license",
+    "icon": "icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "dev.rocky.rockylib.RockyLibFabric"
+        ]
+    },
+    "mixins": [
+        "rockylib.mixins.json",
+        "rockylib.fabric.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.16.14",
+        "fabric-api": "*",
+        "minecraft": "~1.21.6",
+        "java": ">=21"
+    },
+    "suggests": {
+        "modmenu": ">=15.0.0-beta.3"
+    }
+}
+  
