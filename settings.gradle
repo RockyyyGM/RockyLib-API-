@@ -49,8 +49,8 @@ plugins {
 dependencyResolutionManagement {
     repositories {
         maven {
-            name = "Kaf Mod Resources"
-            url = "https://raw.githubusercontent.com/iamkaf/modresources/main/maven/"
+            name = ""
+            url = ""
         }
     }
 }
